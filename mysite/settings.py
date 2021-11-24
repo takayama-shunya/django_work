@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import environ
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -19,11 +19,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '*p8w6-24j!!f539!wp0=acj#dz+&sde*js^f01_ew^1o7kpmrj'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG=True
 
 ALLOWED_HOSTS = []
 
@@ -105,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
 
