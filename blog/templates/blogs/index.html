@@ -1,0 +1,27 @@
+<p><a class='btn btn-primary' href="{% url 'blogs:create' %}">新規登録</a></p>
+{% if blog_list %}
+    <table>
+      <thead>
+        <tr>
+          <th>title</th>
+          <th>content</th>
+          <th></th>
+        <tr>
+      </thead>
+      <tbody>
+        {% for blog in blog_list %}
+        <tr>
+          <td>{{ blog.title }}</td>
+          <td>{{ blog.content }}</td>
+          <td><a class='btn btn-primary' href="{% url 'blogs:update' pk=blog.pk %}">更新</a></td>
+          <td>
+            <form method="post" action="{% url 'blogs:delete' pk=blog.pk  %}">{% csrf_token %}
+              <button class="btn" type="submit" onclick='return confirm("本当に削除しますか？");'>削除</button>
+            </form>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+    <p>No blog are available.</p>
+{% endif %}
